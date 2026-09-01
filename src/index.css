@@ -11,6 +11,7 @@
 * { box-sizing: border-box; }
 
 html, body, #root { min-height: 100%; }
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -19,6 +20,7 @@ body {
 }
 
 button, a { font: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
@@ -28,13 +30,31 @@ button, a { font: inherit; }
 .cursor-blink { animation: blink 1s step-end infinite; }
 
 .portfolio-glow { background: radial-gradient(circle at 72% 23%, rgb(55 55 55 / 42%), transparent 25rem), radial-gradient(circle at 13% 81%, rgb(37 37 37 / 34%), transparent 22rem), linear-gradient(115deg, rgb(0 0 0 / 48%), rgb(0 0 0 / 78%)); }
+.mobile-hero-background { background: #050505 url('/images/mobile-hero-background.webp') center center / cover no-repeat; }
+.site-intro-mark { animation: intro-mark 1.2s ease-in-out infinite alternate; }
+.site-intro-line { display: inline-block; height: 1px; width: 3rem; background: rgb(255 255 255 / .45); animation: intro-line 1.2s ease-in-out infinite; transform-origin: left; }
+@keyframes intro-mark { to { opacity: .35; transform: rotate(18deg); } }
+@keyframes intro-line { 50% { transform: scaleX(.35); opacity: .3; } }
 .portfolio-pill { margin: 0 .2em .4em; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; border: 1px solid; border-radius: 9999px; padding: .32em 1rem; font-size: 13px; transition: color .2s, background-color .2s; }
 .portfolio-pill-light { background: #fff; border-color: rgb(0 0 0 / .1); color: #000; }
 .portfolio-pill-light:hover { background: #000; color: #fff; }
 @media (min-width: 640px) { .portfolio-pill { padding-inline: 1.25rem; font-size: 15px; } }
 
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; }
+@media (max-width: 639px) {
+  .hero-actions { display: grid; grid-template-columns: max-content max-content; gap: .45rem; }
+  .hero-actions .portfolio-pill { margin: 0; min-height: 38px; padding-inline: .8rem; }
+  .hero-actions .hero-email { grid-column: 1 / -1; justify-self: start; max-width: 100%; }
+}
+
 .tech-badge { display: flex; min-height: 64px; align-items: center; gap: .85rem; border: 1px solid rgb(255 255 255 / .65); border-radius: .65rem; padding: .85rem 1rem; font-size: .98rem; color: #fff; transition: color .2s, border-color .2s, background-color .2s; }
 .tech-badge:hover { border-color: #fff; background: #fff; color: #000; }
 .tech-badge img { height: 22px; width: 22px; object-fit: contain; transition: filter .2s; }
 .tech-badge:hover img { filter: invert(1); }
+@media (max-width: 399px) { .tech-badge { min-height: 58px; gap: .55rem; padding: .7rem; font-size: .85rem; } .tech-badge img { height: 18px; width: 18px; } }
 @media (min-width: 640px) { .tech-badge { min-height: 72px; padding: 1rem 1.1rem; font-size: 1.05rem; } .tech-badge img { height: 24px; width: 24px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
